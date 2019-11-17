@@ -57,6 +57,7 @@ namespace SM.SMS.WebApi.Service
 
       _loggerService.LogInformation("SendSMS(SendSMSRequest request) - END");
 
+      // MAP Response to output response object:
       var resultList = new List<SmsHistory>();
       resultList.Add(new SmsHistory()
       {
@@ -66,7 +67,11 @@ namespace SM.SMS.WebApi.Service
         Number = "070025146"
       });
 
-      result.SmsHistory.ToList().AddRange(resultList);
+      result.SmsHistory = new List<SmsHistory>();
+      var smsHistory = result.SmsHistory.ToList();
+      smsHistory.AddRange(resultList);
+      result.SmsHistory = smsHistory;
+
       return result;
     }
   }

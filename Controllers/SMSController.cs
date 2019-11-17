@@ -7,7 +7,6 @@ using SM.SMS.WebApi.Service.Contracts;
 
 namespace SM.SMS.WebApi.Controllers
 {
-  [Authorize(AuthenticationSchemes = "Basic")]
   [ApiVersion("1.0")]
   [Produces("application/json")]
   [Route("api/v{version:apiVersion}/SMS")]

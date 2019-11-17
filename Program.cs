@@ -27,7 +27,7 @@ namespace WebApi
           {
             logConfig.ClearProviders();
           })
-          .UseStartup<Startup>().UseUrls("http://*:8080")
+          .UseStartup<Startup>().UseUrls("http://*:62883")
           .Build();
     }
   }

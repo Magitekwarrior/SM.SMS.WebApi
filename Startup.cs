@@ -15,6 +15,8 @@ using Newtonsoft.Json.Serialization;
 using NLog;
 using NLog.Config;
 using NLog.Extensions.Logging;
+using SM.SMS.Web.Api.Infrastructure.Connection;
+using SM.SMS.Web.Api.Infrastructure.Connection.Contracts;
 using SM.SMS.WebApi.Controllers.Swagger;
 using SM.SMS.WebApi.Infrastructure.Configurations;
 using SM.SMS.WebApi.Infrastructure.Configurations.ConfigModels;
@@ -24,6 +26,8 @@ using SM.SMS.WebApi.Infrastructure.HttpClients.Contracts;
 using SM.SMS.WebApi.Infrastructure.Logging;
 using SM.SMS.WebApi.Infrastructure.OriginSQLPassword;
 using SM.SMS.WebApi.Infrastructure.OriginSQLUser;
+using SM.SMS.WebApi.Infrastructure.Repositories;
+using SM.SMS.WebApi.Infrastructure.Repositories.Contracts;
 using SM.SMS.WebApi.Infrastructure.Tracking;
 using SM.SMS.WebApi.Middleware;
 using SM.SMS.WebApi.Service;
@@ -140,15 +144,22 @@ namespace WebApi
       services.AddScoped<IHttpClientFactory, HttpClientFactory>();
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+      services.AddSingleton(Configuration);
+      services.AddScoped<IHttpClientFactory, HttpClientFactory>();
+      services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+      services.AddTransient<IHttpClientRepo, HttpClientRepo>();
       services.AddTransient<IConfigService, ConfigService>();
       services.AddTransient<ILoggerService, LoggerService>();
       services.AddTransient<ITrackingService, TrackingService>();
-      services.AddTransient<IHttpClientRepo, HttpClientRepo>();
-      services.AddTransient<IOriginSQLUserService, OriginSQLUserService>();
-      services.AddTransient<IOriginSQLPasswordService, OriginSQLPasswordService>();
+      services.AddTransient<IConnectionFactory, ConnectionFactory>();
+      services.AddTransient<IOriginSQLUserService, OriginSQLUserService>();// Origin user
+      services.AddTransient<IOriginSQLPasswordService, OriginSQLPasswordService>();// Origin password
+
       services.AddTransient<ITestService, TestService>();
 
       services.AddTransient<ISMSService, SMSService>();
+      services.AddTransient<ISMSRepo, SmsRepo>();
+      
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

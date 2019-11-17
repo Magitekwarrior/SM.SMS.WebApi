@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SM.SMS.WebApi.Controllers
 {
-  [Authorize(AuthenticationSchemes = "Basic")]
   [ApiVersion("1.0")]
   [Produces("application/json")]
   [Route("api/v{version:apiVersion}/test")]
@@ -19,6 +18,7 @@ namespace SM.SMS.WebApi.Controllers
       _testService = testService;
     }
 
+    [AllowAnonymous]
     [HttpPost, MapToApiVersion("1.0")]
     [Route("TestLogging")]
     public void TestLogging()
